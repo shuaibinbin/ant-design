@@ -3,6 +3,7 @@ order: 1
 title:
   zh-CN: 图标按钮
   en-US: Icon
+only: true
 ---
 
 ## zh-CN

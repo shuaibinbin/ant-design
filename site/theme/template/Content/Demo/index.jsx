@@ -204,8 +204,10 @@ class Demo extends React.Component {
       (acc, line) => {
         const matches = line.match(/import .+? from '(.+)';$/);
         if (matches && matches[1] && !line.includes('antd')) {
-          const [dep] = matches[1].split('/');
-          if (dep) {
+          const paths = matches[1].split('/');
+
+          if (paths.length) {
+            const dep = paths[0].startsWith('@') ? `${paths[0]}/${paths[1]}` : paths[0];
             acc[dep] = 'latest';
           }
         }
@@ -214,6 +216,8 @@ class Demo extends React.Component {
       // eslint-disable-next-line no-undef
       { react: 'latest', 'react-dom': 'latest', antd: antdReproduceVersion },
     );
+
+    console.error('>>>>', dependencies);
 
     // Reorder source code
     let parsedSourceCode = sourceCode;
